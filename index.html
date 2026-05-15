@@ -1,0 +1,1571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Product Roadmap</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Orenda Education — sampled from logo */
+    --orenda-blue: #011FBD;        /* wordmark primary */
+    --orenda-blue-deep: #00187A;
+    --orenda-cyan: #2AE1F3;        /* bright accent */
+    --orenda-green: #3AB54A;       /* supporting */
+    --orenda-yellow: #FEC401;      /* supporting */
+    --orenda-orange: #F45418;      /* tagline / accent */
+
+    /* Soft tints (for backgrounds and chips) */
+    --orenda-blue-soft: #D6DCF5;
+    --orenda-cyan-soft: #CFF6FB;
+    --orenda-green-soft: #D5EFD8;
+    --orenda-yellow-soft: #FFF1C2;
+    --orenda-orange-soft: #FBDACC;
+
+    --bg: #f6f8fc;
+    --bg-card: #ffffff;
+    --ink: var(--orenda-blue-deep);
+    --ink-soft: #4a5670;
+    --ink-faint: #8b95a8;
+    --line: #e3e8f0;
+    --line-strong: #b6c0d2;
+    --accent: var(--orenda-blue);
+
+    /* Phase colors — mapped logically to the four phases */
+    --discovery: var(--orenda-yellow);     /* explore → yellow (curiosity) */
+    --discovery-bg: var(--orenda-yellow-soft);
+    --design: var(--orenda-cyan);          /* craft → cyan */
+    --design-bg: var(--orenda-cyan-soft);
+    --development: var(--orenda-blue);     /* build → primary blue */
+    --development-bg: var(--orenda-blue-soft);
+    --launch: var(--orenda-orange);        /* go-live → orange (energy) */
+    --launch-bg: var(--orenda-orange-soft);
+
+    --row-h: 64px;
+    --header-h: 56px;
+    --label-w: 280px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter Tight', sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    min-height: 100vh;
+  }
+
+  /* Subtle paper texture */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image: radial-gradient(circle at 1px 1px, rgba(0,0,0,0.015) 1px, transparent 0);
+    background-size: 24px 24px;
+    z-index: 0;
+  }
+
+  .app {
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 40px 32px 80px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* --- Top bar --- */
+  .top {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 32px;
+    margin-bottom: 32px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--line-strong);
+  }
+
+  .title {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 44px;
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+  .title em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--orenda-blue);
+  }
+  .subtitle {
+    margin-top: 8px;
+    color: var(--ink-soft);
+    font-size: 13px;
+    letter-spacing: 0.02em;
+  }
+
+  /* --- Controls --- */
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    align-items: flex-end;
+  }
+
+  .control {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .control label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  .control input[type="month"] {
+    font-family: 'Inter Tight', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 9px 12px;
+    border: 1px solid var(--line-strong);
+    background: var(--bg-card);
+    color: var(--ink);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: border-color 0.15s;
+  }
+  .control input[type="month"]:hover,
+  .control input[type="month"]:focus {
+    border-color: var(--ink);
+    outline: none;
+  }
+
+  .btn {
+    font-family: 'Inter Tight', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 10px 18px;
+    border: 1px solid var(--ink);
+    background: var(--ink);
+    color: var(--bg);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.15s;
+    letter-spacing: 0.01em;
+  }
+  .btn:hover {
+    background: var(--bg);
+    color: var(--orenda-blue);
+    border-color: var(--orenda-blue);
+    box-shadow: 0 0 0 2px var(--orenda-cyan);
+  }
+  .btn.secondary {
+    background: transparent;
+    color: var(--ink);
+  }
+  .btn.secondary:hover {
+    background: var(--ink);
+    color: var(--bg);
+  }
+
+  /* --- Legend --- */
+  .legend {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+  }
+  .legend-swatch {
+    width: 16px;
+    height: 10px;
+    border-radius: 2px;
+  }
+
+  /* --- Gantt --- */
+  .gantt {
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.02), 0 8px 24px -16px rgba(0,0,0,0.08);
+  }
+
+  .gantt-scroll {
+    overflow-x: auto;
+  }
+
+  .gantt-inner {
+    display: grid;
+    min-width: 100%;
+  }
+
+  /* Header row with months */
+  .gantt-header {
+    display: grid;
+    height: var(--header-h);
+    border-bottom: 1px solid var(--line-strong);
+    background: #fafaf6;
+  }
+
+  .header-label {
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    border-right: 1px solid var(--line);
+    position: sticky;
+    left: 0;
+    background: #fafaf6;
+    z-index: 2;
+  }
+
+  .month-cell {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid var(--line);
+    font-family: 'Inter Tight', sans-serif;
+    font-size: 11px;
+    color: var(--ink-soft);
+    padding: 0 4px;
+    text-align: center;
+  }
+  .month-cell .mo { font-weight: 600; color: var(--ink); }
+  .month-cell .yr { font-size: 9px; color: var(--ink-faint); letter-spacing: 0.06em; }
+  .month-cell.year-start {
+    border-left: 2px solid var(--line-strong);
+  }
+
+  /* Rows */
+  .gantt-row {
+    display: grid;
+    height: var(--row-h);
+    border-bottom: 1px solid var(--line);
+    position: relative;
+  }
+  .gantt-row:last-child { border-bottom: none; }
+  .gantt-row:hover { background: rgba(0,0,0,0.015); }
+
+  .row-label {
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    border-right: 1px solid var(--line);
+    position: sticky;
+    left: 0;
+    background: var(--bg-card);
+    z-index: 2;
+  }
+  .gantt-row:hover .row-label { background: #fafaf6; }
+
+  .row-name {
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--ink);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex: 1;
+  }
+
+  .row-actions {
+    display: flex;
+    gap: 4px;
+    opacity: 0;
+    transition: opacity 0.15s;
+  }
+  .gantt-row:hover .row-actions { opacity: 1; }
+
+  .icon-btn {
+    background: transparent;
+    border: 1px solid var(--line-strong);
+    width: 26px;
+    height: 26px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ink-soft);
+    transition: all 0.12s;
+    font-size: 13px;
+  }
+  .icon-btn:hover {
+    background: var(--ink);
+    color: var(--bg);
+    border-color: var(--ink);
+  }
+
+  /* Timeline track */
+  .track {
+    position: relative;
+    border-right: 1px solid var(--line);
+    grid-column-start: 2;
+    grid-column-end: -1;
+  }
+
+  .track-grid {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    pointer-events: none;
+  }
+  .track-grid-cell {
+    border-right: 1px solid var(--line);
+  }
+  .track-grid-cell.year-start {
+    border-right: 1px solid var(--line);
+    border-left: 2px solid var(--line-strong);
+  }
+
+  /* Phase bars */
+  .phase-bar {
+    position: absolute;
+    height: 11px;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(0,0,0,0.65);
+    overflow: hidden;
+    white-space: nowrap;
+    cursor: grab;
+    transition: box-shadow 0.12s, transform 0.12s;
+    user-select: none;
+  }
+  .phase-bar:hover {
+    box-shadow: 0 2px 8px rgba(1,31,189,0.18);
+    transform: translateY(-1px);
+    z-index: 5;
+  }
+  .phase-bar.dragging {
+    cursor: grabbing;
+    box-shadow: 0 4px 14px rgba(1,31,189,0.32);
+    z-index: 10;
+    transition: none;
+  }
+
+  /* Drag handles on both ends of the bar */
+  .drag-handle {
+    position: absolute;
+    top: -3px;
+    bottom: -3px;
+    width: 8px;
+    cursor: ew-resize;
+    background: transparent;
+  }
+  .drag-handle::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 2px;
+    height: 7px;
+    background: rgba(255,255,255,0.6);
+    transform: translate(-50%, -50%);
+    border-radius: 1px;
+    opacity: 0;
+    transition: opacity 0.12s;
+  }
+  .phase-bar:hover .drag-handle::before { opacity: 1; }
+  .phase-bar.discovery .drag-handle::before,
+  .phase-bar.design .drag-handle::before { background: rgba(0,24,122,0.55); }
+  .drag-handle.left { left: -4px; }
+  .drag-handle.right { right: -4px; }
+
+  /* Floating month label during drag */
+  .drag-readout {
+    position: fixed;
+    background: var(--orenda-blue);
+    color: #fff;
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    pointer-events: none;
+    opacity: 0;
+    z-index: 150;
+    box-shadow: 0 6px 16px rgba(1,31,189,0.3);
+  }
+  .drag-readout.visible { opacity: 1; }
+
+  .phase-bar.discovery { background: var(--discovery); color: var(--orenda-blue-deep); }
+  .phase-bar.design { background: var(--design); color: var(--orenda-blue-deep); }
+  .phase-bar.development { background: var(--development); color: #ffffff; }
+  .phase-bar.launch { background: var(--launch); color: #ffffff; }
+
+  /* Tooltip */
+  .tooltip {
+    position: fixed;
+    background: var(--ink);
+    color: var(--bg);
+    padding: 14px 18px;
+    border-radius: 6px;
+    font-size: 12px;
+    line-height: 1.55;
+    max-width: 320px;
+    box-shadow: 0 20px 50px -10px rgba(0,0,0,0.4);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.15s;
+    z-index: 100;
+  }
+  .tooltip.visible { opacity: 1; }
+  .tooltip .tt-title {
+    font-family: 'Fraunces', serif;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #fff;
+  }
+  .tooltip .tt-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.55);
+    margin-bottom: 8px;
+  }
+  .tooltip .tt-desc {
+    color: rgba(255,255,255,0.88);
+  }
+
+  /* Empty state */
+  .empty {
+    padding: 80px 20px;
+    text-align: center;
+    color: var(--ink-faint);
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 18px;
+  }
+
+  /* --- Modal --- */
+  .modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(20,20,18,0.5);
+    backdrop-filter: blur(4px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 200;
+    padding: 24px;
+  }
+  .modal-backdrop.open { display: flex; }
+
+  .modal {
+    background: var(--bg-card);
+    border-radius: 8px;
+    width: 100%;
+    max-width: 640px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 40px 80px -20px rgba(0,0,0,0.3);
+  }
+
+  .modal-head {
+    padding: 28px 32px 20px;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .modal-head h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 26px;
+    letter-spacing: -0.01em;
+  }
+  .close-btn {
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--ink-soft);
+    line-height: 1;
+    padding: 4px 8px;
+  }
+  .close-btn:hover { color: var(--ink); }
+
+  .modal-body { padding: 24px 32px; }
+
+  .field {
+    margin-bottom: 18px;
+  }
+  .field label {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 6px;
+  }
+  .field input[type="text"],
+  .field input[type="month"],
+  .field textarea {
+    width: 100%;
+    font-family: 'Inter Tight', sans-serif;
+    font-size: 14px;
+    padding: 10px 12px;
+    border: 1px solid var(--line-strong);
+    background: var(--bg);
+    color: var(--ink);
+    border-radius: 4px;
+    resize: vertical;
+  }
+  .field input:focus, .field textarea:focus {
+    outline: none;
+    border-color: var(--ink);
+  }
+  .field textarea { min-height: 70px; }
+
+  .phase-row {
+    display: grid;
+    grid-template-columns: 110px 1fr 1fr 28px;
+    gap: 10px;
+    align-items: end;
+    margin-bottom: 10px;
+  }
+  .phase-row .phase-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    height: 38px;
+    padding: 0 10px;
+    border-radius: 4px;
+    color: rgba(0,0,0,0.75);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+  }
+  .phase-row .phase-label.discovery { background: var(--discovery-bg); }
+  .phase-row .phase-label.design { background: var(--design-bg); }
+  .phase-row .phase-label.development { background: var(--development-bg); }
+  .phase-row .phase-label.launch { background: var(--launch-bg); }
+
+  .phase-row input[type="month"] {
+    height: 38px;
+    padding: 0 10px;
+  }
+
+  .phase-toggle {
+    background: transparent;
+    border: 1px solid var(--line-strong);
+    height: 38px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    color: var(--ink-soft);
+  }
+  .phase-toggle.active {
+    background: var(--ink);
+    color: var(--bg);
+    border-color: var(--ink);
+  }
+
+  .modal-foot {
+    padding: 20px 32px 28px;
+    border-top: 1px solid var(--line);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+  }
+  .modal-foot .right { display: flex; gap: 10px; }
+
+  .danger {
+    color: var(--orenda-orange);
+    background: transparent;
+    border: 1px solid transparent;
+    font-size: 13px;
+    cursor: pointer;
+    padding: 8px 0;
+    font-weight: 500;
+  }
+  .danger:hover { text-decoration: underline; }
+
+  /* --- Print footer (hidden in screen view) --- */
+  .print-footer {
+    display: none;
+  }
+
+  /* ========================================================
+     PRINT STYLES — clean PDF output
+     ======================================================== */
+  @media print {
+    @page {
+      size: letter landscape;
+      margin: 0.4in 0.5in;
+    }
+
+    /* Ensure backgrounds and colors print */
+    * {
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+      color-adjust: exact !important;
+    }
+
+    html, body {
+      background: #fff !important;
+      font-size: 10pt;
+    }
+
+    body::before { display: none !important; }
+
+    .app {
+      padding: 0 !important;
+      max-width: 100% !important;
+    }
+
+    /* Hide all interactive controls */
+    #addBtn,
+    #printBtn,
+    .row-actions,
+    .drag-handle,
+    .modal-backdrop,
+    .tooltip,
+    .drag-readout,
+    .control input[type="month"] {
+      display: none !important;
+    }
+    .controls .control {
+      display: none !important;
+    }
+
+    /* Title — compact */
+    .top {
+      margin-bottom: 12px !important;
+      padding-bottom: 10px !important;
+      border-bottom: 1.5px solid var(--orenda-blue) !important;
+      page-break-after: avoid;
+    }
+    .title {
+      font-size: 22pt !important;
+    }
+    .subtitle {
+      font-size: 9pt !important;
+      margin-top: 4px !important;
+    }
+
+    /* Show date range as text instead of inputs */
+    .controls {
+      display: block !important;
+    }
+    .controls::before {
+      content: attr(data-range);
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9pt;
+      letter-spacing: 0.08em;
+      color: var(--orenda-blue);
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .legend {
+      margin-bottom: 10px !important;
+      gap: 14px !important;
+      page-break-after: avoid;
+    }
+    .legend-item {
+      font-size: 8pt !important;
+    }
+    .legend-item:last-child { display: none !important; } /* hide the "Hover" hint */
+
+    /* Gantt: kill scroll, fit to page */
+    .gantt {
+      border: 1px solid #ccc !important;
+      box-shadow: none !important;
+      border-radius: 3px !important;
+      page-break-inside: auto;
+    }
+    .gantt-scroll {
+      overflow: visible !important;
+    }
+    .gantt-inner {
+      min-width: 0 !important;
+      width: 100% !important;
+    }
+
+    /* Rows: don't split across pages */
+    .gantt-row {
+      page-break-inside: avoid;
+      break-inside: avoid;
+      height: 44px !important;
+    }
+    .gantt-header {
+      height: 38px !important;
+    }
+
+    .header-label,
+    .row-label {
+      position: static !important; /* unstick — print doesn't need sticky cols */
+    }
+
+    .row-name {
+      font-size: 9.5pt !important;
+    }
+
+    .month-cell {
+      font-size: 7pt !important;
+    }
+    .month-cell .mo { font-size: 7.5pt !important; }
+    .month-cell .yr { font-size: 6pt !important; }
+
+    /* Phase bars — slightly taller for legibility in print */
+    .phase-bar {
+      height: 9px !important;
+      font-size: 6.5pt !important;
+      padding: 0 5px !important;
+      letter-spacing: 0.06em !important;
+      border: 0.5px solid rgba(0,0,0,0.1) !important;
+    }
+
+    /* Print footer */
+    .print-footer {
+      display: flex !important;
+      justify-content: space-between;
+      margin-top: 14px;
+      padding-top: 10px;
+      border-top: 1px solid #ddd;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 8pt;
+      color: #666;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      page-break-inside: avoid;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .top { flex-direction: column; align-items: stretch; gap: 20px; }
+    .title { font-size: 32px; }
+    :root { --label-w: 200px; }
+    .phase-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <header class="top">
+    <div>
+      <h1 class="title">Product <em>Roadmap</em></h1>
+      <p class="subtitle">Discovery · Design · Development · Launch</p>
+    </div>
+    <div class="controls">
+      <div class="control">
+        <label for="rangeStart">Roadmap from</label>
+        <input type="month" id="rangeStart">
+      </div>
+      <div class="control">
+        <label for="rangeEnd">Roadmap to</label>
+        <input type="month" id="rangeEnd">
+      </div>
+      <button class="btn" id="addBtn">+ Add initiative</button>
+      <button class="btn secondary" id="printBtn" title="Print or save as PDF">⎙ Print / PDF</button>
+    </div>
+  </header>
+
+  <div class="legend">
+    <div class="legend-item"><span class="legend-swatch" style="background:var(--discovery)"></span>Discovery</div>
+    <div class="legend-item"><span class="legend-swatch" style="background:var(--design)"></span>Design</div>
+    <div class="legend-item"><span class="legend-swatch" style="background:var(--development)"></span>Development</div>
+    <div class="legend-item"><span class="legend-swatch" style="background:var(--launch)"></span>Launch</div>
+    <div class="legend-item" style="margin-left:auto;color:var(--ink-faint)">Hover a row for summary · Click to edit</div>
+  </div>
+
+  <div class="gantt">
+    <div class="gantt-scroll">
+      <div class="gantt-inner" id="ganttInner">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+  </div>
+
+  <div class="print-footer" id="printFooter"></div>
+
+</div>
+
+<div class="tooltip" id="tooltip"></div>
+
+<!-- Edit Modal -->
+<div class="modal-backdrop" id="modalBackdrop">
+  <div class="modal">
+    <div class="modal-head">
+      <h2 id="modalTitle">Initiative</h2>
+      <button class="close-btn" id="closeModal">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="field">
+        <label>Initiative name</label>
+        <input type="text" id="fName" placeholder="e.g. GA Assistant v2 launch">
+      </div>
+      <div class="field">
+        <label>Summary (shown on hover)</label>
+        <textarea id="fSummary" placeholder="A short description of what this initiative delivers and why it matters."></textarea>
+      </div>
+
+      <div class="field">
+        <label style="margin-bottom:12px">Phases (each can overlap)</label>
+
+        <div class="phase-row" data-phase="discovery">
+          <div class="phase-label discovery">Discovery</div>
+          <input type="month" class="phase-start">
+          <input type="month" class="phase-end">
+          <button class="phase-toggle active" title="Toggle phase">●</button>
+        </div>
+        <div class="phase-row" data-phase="design">
+          <div class="phase-label design">Design</div>
+          <input type="month" class="phase-start">
+          <input type="month" class="phase-end">
+          <button class="phase-toggle active" title="Toggle phase">●</button>
+        </div>
+        <div class="phase-row" data-phase="development">
+          <div class="phase-label development">Development</div>
+          <input type="month" class="phase-start">
+          <input type="month" class="phase-end">
+          <button class="phase-toggle active" title="Toggle phase">●</button>
+        </div>
+        <div class="phase-row" data-phase="launch">
+          <div class="phase-label launch">Launch</div>
+          <input type="month" class="phase-start">
+          <input type="month" class="phase-end">
+          <button class="phase-toggle active" title="Toggle phase">●</button>
+        </div>
+
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="danger" id="deleteBtn">Delete initiative</button>
+      <div class="right">
+        <button class="btn secondary" id="cancelBtn">Cancel</button>
+        <button class="btn" id="saveBtn">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// STATE
+// ============================================================
+const PHASES = ['discovery', 'design', 'development', 'launch'];
+const PHASE_LABELS = {
+  discovery: 'Discovery',
+  design: 'Design',
+  development: 'Development',
+  launch: 'Launch'
+};
+
+let state = {
+  rangeStart: '2026-01',
+  rangeEnd: '2026-12',
+  items: [
+    {
+      id: 'i1',
+      name: 'GA Assistant v2',
+      summary: 'Conversational AI for student support, expanded to cover counseling workflows. Built on Anthropic MCP.',
+      phases: {
+        discovery: { start: '2026-01', end: '2026-02', active: true },
+        design: { start: '2026-02', end: '2026-03', active: true },
+        development: { start: '2026-02', end: '2026-05', active: true },
+        launch: { start: '2026-05', end: '2026-06', active: true },
+      }
+    },
+    {
+      id: 'i2',
+      name: 'PROMOTE v3 — predictive flags',
+      summary: 'Counselor analytics with early-warning flags. Pilot with three districts before broader rollout.',
+      phases: {
+        discovery: { start: '2026-01', end: '2026-01', active: true },
+        design: { start: '2026-02', end: '2026-03', active: true },
+        development: { start: '2026-03', end: '2026-05', active: true },
+        launch: { start: '2026-05', end: '2026-05', active: true },
+      }
+    },
+    {
+      id: 'i3',
+      name: 'ORS performance overhaul',
+      summary: 'Query speed and dashboard latency improvements. Target P95 under 2 seconds.',
+      phases: {
+        discovery: { start: '2026-03', end: '2026-03', active: true },
+        design: { start: '2026-04', end: '2026-04', active: true },
+        development: { start: '2026-04', end: '2026-07', active: true },
+        launch: { start: '2026-07', end: '2026-07', active: true },
+      }
+    },
+    {
+      id: 'i4',
+      name: 'Matrix Builder GA',
+      summary: 'General availability of district-configurable matrix tool. Self-serve onboarding.',
+      phases: {
+        discovery: { start: '2026-04', end: '2026-04', active: true },
+        design: { start: '2026-05', end: '2026-06', active: true },
+        development: { start: '2026-05', end: '2026-08', active: true },
+        launch: { start: '2026-08', end: '2026-09', active: true },
+      }
+    },
+  ]
+};
+
+let editingId = null;
+
+// ============================================================
+// HELPERS
+// ============================================================
+function monthToIndex(yearMonthStr) {
+  // "2026-03" → number of months since year 0
+  const [y, m] = yearMonthStr.split('-').map(Number);
+  return y * 12 + (m - 1);
+}
+function indexToMonth(idx) {
+  const y = Math.floor(idx / 12);
+  const m = (idx % 12) + 1;
+  return `${y}-${String(m).padStart(2, '0')}`;
+}
+function getMonthsArray() {
+  const start = monthToIndex(state.rangeStart);
+  const end = monthToIndex(state.rangeEnd);
+  const months = [];
+  for (let i = start; i <= end; i++) months.push(i);
+  return months;
+}
+function formatMonth(idx) {
+  const monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const y = Math.floor(idx / 12);
+  const m = idx % 12;
+  return { mo: monthNames[m], yr: String(y) };
+}
+function uuid() {
+  return 'i' + Math.random().toString(36).slice(2, 9);
+}
+
+// Persist to localStorage so refreshes don't lose work
+function save() {
+  try {
+    const data = JSON.stringify(state);
+    if (typeof localStorage !== 'undefined') localStorage.setItem('roadmap_state', data);
+  } catch (e) {}
+}
+function load() {
+  try {
+    if (typeof localStorage === 'undefined') return;
+    const raw = localStorage.getItem('roadmap_state');
+    if (raw) state = JSON.parse(raw);
+  } catch (e) {}
+}
+
+// ============================================================
+// RENDER
+// ============================================================
+function render() {
+  const inner = document.getElementById('ganttInner');
+  inner.innerHTML = '';
+
+  const months = getMonthsArray();
+  const monthCount = months.length;
+
+  if (monthCount < 1) {
+    inner.innerHTML = '<div class="empty">Set a valid date range to begin.</div>';
+    return;
+  }
+
+  // Grid template: label column + N month columns
+  const gridTemplate = `var(--label-w) repeat(${monthCount}, minmax(50px, 1fr))`;
+
+  // --- Header row ---
+  const header = document.createElement('div');
+  header.className = 'gantt-header';
+  header.style.gridTemplateColumns = gridTemplate;
+
+  const headerLabel = document.createElement('div');
+  headerLabel.className = 'header-label';
+  headerLabel.textContent = 'Initiative';
+  header.appendChild(headerLabel);
+
+  months.forEach((idx, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'month-cell';
+    const { mo, yr } = formatMonth(idx);
+    const isYearStart = (idx % 12) === 0 || i === 0;
+    if (isYearStart && i !== 0) cell.classList.add('year-start');
+
+    cell.innerHTML = `<span class="mo">${mo}</span><span class="yr">${yr}</span>`;
+    header.appendChild(cell);
+  });
+
+  inner.appendChild(header);
+
+  // --- Rows ---
+  if (state.items.length === 0) {
+    const empty = document.createElement('div');
+    empty.className = 'empty';
+    empty.textContent = 'No initiatives yet. Click "+ Add initiative" to start.';
+    inner.appendChild(empty);
+    return;
+  }
+
+  const rangeStartIdx = monthToIndex(state.rangeStart);
+
+  state.items.forEach(item => {
+    const row = document.createElement('div');
+    row.className = 'gantt-row';
+    row.style.gridTemplateColumns = gridTemplate;
+    row.dataset.itemId = item.id;
+
+    // Label
+    const label = document.createElement('div');
+    label.className = 'row-label';
+    label.innerHTML = `
+      <span class="row-name" title="${escapeHtml(item.name)}">${escapeHtml(item.name)}</span>
+      <span class="row-actions">
+        <button class="icon-btn" data-action="edit" title="Edit">✎</button>
+        <button class="icon-btn" data-action="delete" title="Delete">×</button>
+      </span>
+    `;
+    row.appendChild(label);
+
+    // Track (single cell spanning all month columns)
+    const track = document.createElement('div');
+    track.className = 'track';
+    track.style.gridColumn = `2 / span ${monthCount}`;
+
+    // Background grid lines
+    const grid = document.createElement('div');
+    grid.className = 'track-grid';
+    grid.style.gridTemplateColumns = `repeat(${monthCount}, 1fr)`;
+    months.forEach((idx, i) => {
+      const g = document.createElement('div');
+      g.className = 'track-grid-cell';
+      const isYearStart = (idx % 12) === 0;
+      if (isYearStart && i !== 0) g.classList.add('year-start');
+      grid.appendChild(g);
+    });
+    track.appendChild(grid);
+
+    // Phase bars — stacked vertically inside the row so overlapping phases are visible
+    const phaseStartY = 12; // px from top of row
+    const phaseHeight = 11;
+    const phaseGap = 2;
+
+    PHASES.forEach((phase, pi) => {
+      const p = item.phases[phase];
+      if (!p || !p.active) return;
+      if (!p.start || !p.end) return;
+
+      const pStart = monthToIndex(p.start);
+      const pEnd = monthToIndex(p.end);
+
+      // Clamp to range
+      const visStart = Math.max(pStart, rangeStartIdx);
+      const visEnd = Math.min(pEnd, rangeStartIdx + monthCount - 1);
+      if (visEnd < visStart) return;
+
+      // Calculate left % and width %, treating each month as a column
+      // A phase spanning month X means occupying that whole column.
+      const leftPct = ((visStart - rangeStartIdx) / monthCount) * 100;
+      const widthPct = ((visEnd - visStart + 1) / monthCount) * 100;
+
+      const bar = document.createElement('div');
+      bar.className = `phase-bar ${phase}`;
+      bar.style.left = `calc(${leftPct}% + 2px)`;
+      bar.style.width = `calc(${widthPct}% - 4px)`;
+      bar.style.top = `${phaseStartY + pi * (phaseHeight + phaseGap)}px`;
+      bar.textContent = PHASE_LABELS[phase];
+      bar.dataset.itemId = item.id;
+      bar.dataset.phase = phase;
+
+      // Drag handles
+      const leftHandle = document.createElement('div');
+      leftHandle.className = 'drag-handle left';
+      leftHandle.dataset.edge = 'start';
+      bar.appendChild(leftHandle);
+
+      const rightHandle = document.createElement('div');
+      rightHandle.className = 'drag-handle right';
+      rightHandle.dataset.edge = 'end';
+      bar.appendChild(rightHandle);
+
+      track.appendChild(bar);
+    });
+
+    row.appendChild(track);
+    inner.appendChild(row);
+  });
+}
+
+function escapeHtml(s) {
+  if (s == null) return '';
+  return String(s).replace(/[&<>"']/g, c => ({
+    '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'
+  }[c]));
+}
+
+// ============================================================
+// TOOLTIP
+// ============================================================
+const tooltip = document.getElementById('tooltip');
+
+function showTooltip(e, itemId) {
+  const item = state.items.find(i => i.id === itemId);
+  if (!item) return;
+
+  tooltip.innerHTML = `
+    <div class="tt-title">${escapeHtml(item.name)}</div>
+    <div class="tt-desc">${escapeHtml(item.summary || 'No summary provided.')}</div>
+  `;
+  tooltip.classList.add('visible');
+  positionTooltip(e);
+}
+function positionTooltip(e) {
+  const pad = 14;
+  const rect = tooltip.getBoundingClientRect();
+  let x = e.clientX + pad;
+  let y = e.clientY + pad;
+  if (x + rect.width > window.innerWidth - 10) x = e.clientX - rect.width - pad;
+  if (y + rect.height > window.innerHeight - 10) y = e.clientY - rect.height - pad;
+  tooltip.style.left = x + 'px';
+  tooltip.style.top = y + 'px';
+}
+function hideTooltip() {
+  tooltip.classList.remove('visible');
+}
+
+document.addEventListener('mouseover', e => {
+  const row = e.target.closest('.gantt-row');
+  if (row && row.dataset.itemId) showTooltip(e, row.dataset.itemId);
+});
+document.addEventListener('mousemove', e => {
+  if (tooltip.classList.contains('visible')) positionTooltip(e);
+});
+document.addEventListener('mouseout', e => {
+  const row = e.target.closest('.gantt-row');
+  const related = e.relatedTarget && e.relatedTarget.closest && e.relatedTarget.closest('.gantt-row');
+  // Hide only when leaving the row entirely (not when moving between children within the row)
+  if (row && row !== related) hideTooltip();
+});
+
+// ============================================================
+// DRAG TO RESIZE / MOVE PHASES
+// ============================================================
+const dragReadout = document.createElement('div');
+dragReadout.className = 'drag-readout';
+document.body.appendChild(dragReadout);
+
+let drag = null; // { mode: 'start'|'end'|'move', itemId, phase, trackEl, startX, origStart, origEnd, lastStart, lastEnd }
+
+function pixelToMonthIndex(clientX, trackRect) {
+  // Convert an x coordinate (inside the track) to a month index, snapped.
+  const months = getMonthsArray();
+  const monthCount = months.length;
+  const relX = clientX - trackRect.left;
+  const colWidth = trackRect.width / monthCount;
+  // Use floor so any pixel within column N maps to month N.
+  // Clamp to visible range; the user can extend further via the modal if needed.
+  let idx = Math.floor(relX / colWidth);
+  if (idx < 0) idx = 0;
+  if (idx >= monthCount) idx = monthCount - 1;
+  return monthToIndex(state.rangeStart) + idx;
+}
+
+function startDrag(e, mode) {
+  // Find the bar
+  const handle = mode === 'move' ? e.target.closest('.phase-bar') : e.target.closest('.drag-handle');
+  if (!handle) return;
+  const bar = handle.closest('.phase-bar');
+  if (!bar) return;
+
+  const itemId = bar.dataset.itemId;
+  const phase = bar.dataset.phase;
+  const item = state.items.find(i => i.id === itemId);
+  if (!item) return;
+  const p = item.phases[phase];
+  if (!p) return;
+
+  const trackEl = bar.parentElement;
+  const trackRect = trackEl.getBoundingClientRect();
+
+  drag = {
+    mode,
+    itemId,
+    phase,
+    bar,
+    trackEl,
+    trackRect,
+    startClientX: e.clientX,
+    origStart: monthToIndex(p.start),
+    origEnd: monthToIndex(p.end),
+    lastStart: monthToIndex(p.start),
+    lastEnd: monthToIndex(p.end),
+  };
+
+  bar.classList.add('dragging');
+  hideTooltip();
+  e.preventDefault();
+  e.stopPropagation();
+}
+
+function onDragMove(e) {
+  if (!drag) return;
+  const months = getMonthsArray();
+  const monthCount = months.length;
+  const colWidth = drag.trackRect.width / monthCount;
+  const rangeStartIdx = monthToIndex(state.rangeStart);
+  const rangeEndIdx = rangeStartIdx + monthCount - 1;
+
+  let newStart = drag.origStart;
+  let newEnd = drag.origEnd;
+
+  if (drag.mode === 'start') {
+    const targetIdx = pixelToMonthIndex(e.clientX, drag.trackRect);
+    newStart = Math.min(targetIdx, drag.origEnd); // can't go past end
+    newStart = Math.max(newStart, rangeStartIdx);
+  } else if (drag.mode === 'end') {
+    const targetIdx = pixelToMonthIndex(e.clientX, drag.trackRect);
+    newEnd = Math.max(targetIdx, drag.origStart); // can't go before start
+    newEnd = Math.min(newEnd, rangeEndIdx);
+  } else if (drag.mode === 'move') {
+    const deltaPx = e.clientX - drag.startClientX;
+    const deltaMonths = Math.round(deltaPx / colWidth);
+    let shiftedStart = drag.origStart + deltaMonths;
+    let shiftedEnd = drag.origEnd + deltaMonths;
+    // Clamp to range; preserve the phase length
+    if (shiftedStart < rangeStartIdx) {
+      shiftedEnd += (rangeStartIdx - shiftedStart);
+      shiftedStart = rangeStartIdx;
+    }
+    if (shiftedEnd > rangeEndIdx) {
+      shiftedStart -= (shiftedEnd - rangeEndIdx);
+      shiftedEnd = rangeEndIdx;
+    }
+    newStart = shiftedStart;
+    newEnd = shiftedEnd;
+  }
+
+  // Update visual position
+  const leftPct = ((newStart - rangeStartIdx) / monthCount) * 100;
+  const widthPct = ((newEnd - newStart + 1) / monthCount) * 100;
+  drag.bar.style.left = `calc(${leftPct}% + 2px)`;
+  drag.bar.style.width = `calc(${widthPct}% - 4px)`;
+
+  drag.lastStart = newStart;
+  drag.lastEnd = newEnd;
+
+  // Show readout
+  const startFmt = formatMonth(newStart);
+  const endFmt = formatMonth(newEnd);
+  if (drag.mode === 'start') {
+    dragReadout.textContent = `${startFmt.mo} ${startFmt.yr}`;
+  } else if (drag.mode === 'end') {
+    dragReadout.textContent = `${endFmt.mo} ${endFmt.yr}`;
+  } else {
+    dragReadout.textContent = `${startFmt.mo} ${startFmt.yr} → ${endFmt.mo} ${endFmt.yr}`;
+  }
+  dragReadout.classList.add('visible');
+  dragReadout.style.left = (e.clientX + 14) + 'px';
+  dragReadout.style.top = (e.clientY - 32) + 'px';
+}
+
+function endDrag(e) {
+  if (!drag) return;
+
+  const item = state.items.find(i => i.id === drag.itemId);
+  if (item && item.phases[drag.phase]) {
+    item.phases[drag.phase].start = indexToMonth(drag.lastStart);
+    item.phases[drag.phase].end = indexToMonth(drag.lastEnd);
+  }
+
+  drag.bar.classList.remove('dragging');
+  dragReadout.classList.remove('visible');
+  drag = null;
+
+  save();
+  render();
+}
+
+document.addEventListener('mousedown', e => {
+  const handle = e.target.closest('.drag-handle');
+  if (handle) {
+    startDrag(e, handle.dataset.edge); // 'start' or 'end'
+    return;
+  }
+  // Click on bar body (not on a handle) → move whole phase
+  const bar = e.target.closest('.phase-bar');
+  if (bar) {
+    startDrag(e, 'move');
+  }
+});
+
+document.addEventListener('mousemove', e => {
+  if (drag) onDragMove(e);
+});
+
+document.addEventListener('mouseup', e => {
+  if (drag) endDrag(e);
+});
+
+// Cancel drag if mouse leaves the window
+document.addEventListener('mouseleave', e => {
+  if (drag) endDrag(e);
+});
+
+// ============================================================
+// MODAL — add / edit
+// ============================================================
+const modalBackdrop = document.getElementById('modalBackdrop');
+const modalTitle = document.getElementById('modalTitle');
+const fName = document.getElementById('fName');
+const fSummary = document.getElementById('fSummary');
+const deleteBtn = document.getElementById('deleteBtn');
+
+function openModal(itemId) {
+  editingId = itemId;
+  const item = itemId ? state.items.find(i => i.id === itemId) : null;
+
+  modalTitle.textContent = item ? 'Edit initiative' : 'New initiative';
+  deleteBtn.style.display = item ? 'block' : 'none';
+
+  fName.value = item ? item.name : '';
+  fSummary.value = item ? item.summary : '';
+
+  PHASES.forEach(phase => {
+    const row = document.querySelector(`.phase-row[data-phase="${phase}"]`);
+    const startEl = row.querySelector('.phase-start');
+    const endEl = row.querySelector('.phase-end');
+    const toggle = row.querySelector('.phase-toggle');
+
+    const defaultStart = item && item.phases[phase] ? item.phases[phase].start : state.rangeStart;
+    const defaultEnd = item && item.phases[phase] ? item.phases[phase].end : state.rangeStart;
+    const active = item && item.phases[phase] ? item.phases[phase].active : true;
+
+    startEl.value = defaultStart;
+    endEl.value = defaultEnd;
+    toggle.classList.toggle('active', active);
+    toggle.dataset.active = active;
+  });
+
+  modalBackdrop.classList.add('open');
+  setTimeout(() => fName.focus(), 50);
+}
+
+function closeModal() {
+  modalBackdrop.classList.remove('open');
+  editingId = null;
+}
+
+// Phase toggles
+document.querySelectorAll('.phase-toggle').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const isActive = btn.classList.toggle('active');
+    btn.dataset.active = isActive;
+  });
+});
+
+document.getElementById('addBtn').addEventListener('click', () => openModal(null));
+document.getElementById('closeModal').addEventListener('click', closeModal);
+document.getElementById('cancelBtn').addEventListener('click', closeModal);
+modalBackdrop.addEventListener('click', e => {
+  if (e.target === modalBackdrop) closeModal();
+});
+
+document.getElementById('saveBtn').addEventListener('click', () => {
+  const name = fName.value.trim();
+  if (!name) {
+    fName.focus();
+    fName.style.borderColor = 'var(--orenda-orange)';
+    setTimeout(() => fName.style.borderColor = '', 1500);
+    return;
+  }
+
+  const phases = {};
+  let invalid = false;
+  PHASES.forEach(phase => {
+    const row = document.querySelector(`.phase-row[data-phase="${phase}"]`);
+    const start = row.querySelector('.phase-start').value;
+    const end = row.querySelector('.phase-end').value;
+    const active = row.querySelector('.phase-toggle').classList.contains('active');
+
+    if (active && start && end && monthToIndex(end) < monthToIndex(start)) {
+      invalid = true;
+    }
+    phases[phase] = { start, end, active };
+  });
+
+  if (invalid) {
+    alert('A phase end date is before its start date. Please fix.');
+    return;
+  }
+
+  if (editingId) {
+    const item = state.items.find(i => i.id === editingId);
+    item.name = name;
+    item.summary = fSummary.value.trim();
+    item.phases = phases;
+  } else {
+    state.items.push({
+      id: uuid(),
+      name,
+      summary: fSummary.value.trim(),
+      phases
+    });
+  }
+
+  save();
+  render();
+  closeModal();
+});
+
+deleteBtn.addEventListener('click', () => {
+  if (!editingId) return;
+  if (!confirm('Delete this initiative?')) return;
+  state.items = state.items.filter(i => i.id !== editingId);
+  save();
+  render();
+  closeModal();
+});
+
+// Row actions (edit / delete via icon buttons)
+document.getElementById('ganttInner').addEventListener('click', e => {
+  const editBtn = e.target.closest('[data-action="edit"]');
+  const delBtn = e.target.closest('[data-action="delete"]');
+  const row = e.target.closest('.gantt-row');
+  if (!row) return;
+  const itemId = row.dataset.itemId;
+
+  if (delBtn) {
+    if (confirm('Delete this initiative?')) {
+      state.items = state.items.filter(i => i.id !== itemId);
+      save();
+      render();
+    }
+    return;
+  }
+
+  if (editBtn || e.target.closest('.row-name')) {
+    openModal(itemId);
+  }
+});
+
+// ============================================================
+// RANGE CONTROLS
+// ============================================================
+const rangeStartEl = document.getElementById('rangeStart');
+const rangeEndEl = document.getElementById('rangeEnd');
+
+function syncRangeInputs() {
+  rangeStartEl.value = state.rangeStart;
+  rangeEndEl.value = state.rangeEnd;
+}
+
+rangeStartEl.addEventListener('change', e => {
+  if (!e.target.value) return;
+  if (monthToIndex(e.target.value) > monthToIndex(state.rangeEnd)) {
+    alert('Start must be before end.');
+    syncRangeInputs();
+    return;
+  }
+  state.rangeStart = e.target.value;
+  save();
+  render();
+});
+rangeEndEl.addEventListener('change', e => {
+  if (!e.target.value) return;
+  if (monthToIndex(e.target.value) < monthToIndex(state.rangeStart)) {
+    alert('End must be after start.');
+    syncRangeInputs();
+    return;
+  }
+  state.rangeEnd = e.target.value;
+  save();
+  render();
+});
+
+// Keyboard
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && modalBackdrop.classList.contains('open')) closeModal();
+});
+
+// ============================================================
+// PRINT / PDF
+// ============================================================
+function preparePrintFooter() {
+  const footer = document.getElementById('printFooter');
+  if (!footer) return;
+  const startFmt = formatMonth(monthToIndex(state.rangeStart));
+  const endFmt = formatMonth(monthToIndex(state.rangeEnd));
+  const today = new Date();
+  const dateStr = today.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+  const count = state.items.length;
+  footer.innerHTML = `
+    <span>Roadmap · ${startFmt.mo} ${startFmt.yr} — ${endFmt.mo} ${endFmt.yr} · ${count} initiative${count === 1 ? '' : 's'}</span>
+    <span>Generated ${dateStr}</span>
+  `;
+
+  // Also update the .controls data-range so the print stylesheet can show it
+  const controls = document.querySelector('.controls');
+  if (controls) {
+    controls.setAttribute('data-range', `${startFmt.mo} ${startFmt.yr} — ${endFmt.mo} ${endFmt.yr}`);
+  }
+}
+
+const printBtn = document.getElementById('printBtn');
+if (printBtn) {
+  printBtn.addEventListener('click', () => {
+    preparePrintFooter();
+    // Give the DOM a tick to settle before invoking print
+    setTimeout(() => window.print(), 50);
+  });
+}
+
+// Also prepare the footer ahead of time in case the user uses Cmd/Ctrl+P
+window.addEventListener('beforeprint', preparePrintFooter);
+
+// ============================================================
+// INIT
+// ============================================================
+load();
+syncRangeInputs();
+render();
+</script>
+</body>
+</html>
